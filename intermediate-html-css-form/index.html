@@ -16,8 +16,49 @@
 				<sub>Photo by <a href="">Hallie West</a> on <a href="">Unsplash</a></sub>
 			</div>
 			<div id="section-project">
-					<h1>This is just an html page :) it's been a while</h1>
-					<p>Above its odin's logo</p>
+				<div class="section-project-header">
+					<h3>This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams. Sign up <i>now</i> to get started.</i></h3>
+					<h3>You know you want to.</h3>
+				</div>
+				<form action="/register" id="register-form" name="register_form" method="POST">
+					<div class="section-project-form-top">
+						<h4>Let's do this</h4>
+						<div class="form-group">
+							<div class="form-input">
+								<label for="first_name_input">First Name</label>
+								<input type="text" id="first_name_input" />
+							</div>
+							<div class="form-input">
+								<label for="last_name_input">Last Name</label>
+								<input type="text" id="last_name_input" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-input">
+								<label for="email_input">Email</label>
+								<input type="email" id="email_input" />
+							</div>
+							<div class="form-input">
+								<label for="phone_input">Phone</label>
+								<input type="phone" id="phone_input" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="form-input">
+								<label for="password_input">Password</label>
+								<input pattern="[A-Za-z]{10}" required type="password" id="password_input" />
+							</div>
+							<div class="form-input">
+								<label for="confirmation_password_input">Confirm Password</label>
+								<input pattern="[A-Za-z]{10}" required type="password" id="confirmation_password_input" />
+							</div>
+						</div>
+					</div>
+					<div class="section-project-form-bottom">
+						<button type="submit">Create Account</button>
+						<p>Already have an account? <a href="">Log in.</a></p>
+					</div>
+				</form>
 			</div>
 		</div>
 	</body>

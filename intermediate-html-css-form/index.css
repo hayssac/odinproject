@@ -17,7 +17,7 @@ html, body {
 }
 
 #presentation-project {
-	width: 40%;
+	min-width: 400px;
 	background-image: url(/halie-west-25xggax4bSA-unsplash.jpg);
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -29,15 +29,14 @@ html, body {
 }
 
 #presentation-project #odin-presentation {
-	height: 150px;
+	height: 120px;
 	width: 100%;
+	margin-bottom: 200px;
 	display: flex;
 	flex-flow: row nowrap;
-	align-items: center;
 	justify-content: center;
 	justify-items: center;
 	align-items: center;
-	justify-content: center;
 	background-color: rgba(0, 0, 0, 50%);
 }
 
@@ -49,7 +48,7 @@ html, body {
 #presentation-project #odin-presentation h1 {
 	font-family: "Odin Font", Arial, Helvetica, sans-serif;
 	color: white;
-	font-size: 95px;
+	font-size: 70px;
 	margin: 0;
 	padding-top: 15px;
 }
@@ -78,3 +77,66 @@ html, body {
 	align-items: flex-start;
 	justify-content: center;
 }
+
+.section-project-header {
+	padding: 30px;
+}
+
+#register-form {
+	width: 100%;
+}
+
+.section-project-form-top {
+	padding: 20px 30px 30px 30px;
+	width: 100%;
+	background-color: white;
+	box-shadow: 0px 5px 5px black;
+}
+
+.section-project-form-top h4 {
+	margin-top: 0;
+}
+
+.section-project-form-bottom {
+	padding: 30px;
+}
+
+.section-project-form-bottom button {
+	padding: 15px 30px;
+	background-color: #596D48;
+	color: white;
+	border-radius: 10px;
+	border-style: none;
+	font-size: 14px;
+}
+
+.form-group {
+	display: flex;
+	flex-flow: row nowrap;
+	margin-bottom: 10px;
+}
+
+.form-group .form-input {
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+.form-group .form-input label {
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+.form-group .form-input input {
+	height: 20px;
+	margin-bottom: 10px;
+	padding: 5px;
+	border-radius: 10px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: lightgray;
+}
+
+.form-group .form-input input:invalid {
+	border-color: red;	
+}
+
