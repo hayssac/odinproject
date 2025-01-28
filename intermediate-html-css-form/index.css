@@ -87,14 +87,16 @@ html, body {
 }
 
 .section-project-form-top {
-	padding: 20px 30px 30px 30px;
 	width: 100%;
 	background-color: white;
 	box-shadow: 0px 5px 5px black;
+	min-width: 100%;
+	padding: 20px 0;
 }
 
 .section-project-form-top h4 {
 	margin-top: 0;
+	padding: 20px 30px 0px 30px;
 }
 
 .section-project-form-bottom {
@@ -113,30 +115,43 @@ html, body {
 .form-group {
 	display: flex;
 	flex-flow: row nowrap;
-	margin-bottom: 10px;
+	padding: 0px 30px 20px 30px;
 }
 
 .form-group .form-input {
 	display: flex;
 	flex-flow: column nowrap;
+	margin-right: 50px;
 }
 
 .form-group .form-input label {
-	font-size: 14px;
-	margin-bottom: 10px;
+	font-size: 13px;
+	margin-bottom: 5px;
+	text-transform: uppercase;
 }
 
 .form-group .form-input input {
 	height: 20px;
-	margin-bottom: 10px;
-	padding: 5px;
-	border-radius: 10px;
+	width: 180px;
+	padding: 3px 5px;
+	border-radius: 5px;
 	border-style: solid;
 	border-width: 1px;
 	border-color: lightgray;
 }
 
+.form-group .form-input input:focus {
+	border-color: lightskyblue;
+	box-shadow: 2px 2px 5px darkgray;	
+}
+
 .form-group .form-input input:invalid {
 	border-color: red;	
+}
+
+.section-project-form-bottom p a {
+	color: #596D48;
+	text-decoration: none;
+	font-weight: bold;
 }
 
