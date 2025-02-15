@@ -14,24 +14,18 @@
             this.pages = pages;
             this.read = read;
              
-            this.getTitle = function() {
-                return title;
-            }
-            this.getAuthor = function() {
-                return author;
-            }
             this.getPages = function() {
-                return pages;
+                return this.pages;
             }
             this.getRead = function() {
-                return read;
+                return this.read;
             }
             this.info = function() {
                 var read = "not read yet";
                 if(this.getRead) {
                    read = "was read"; 
                 }
-                return this.getTitle() + " by " + this.getAuthor(), ", " + this.getPages() + " pages " + read;
+                return title + " by " + author + ", " + this.getPages() + " pages " + read;
             }
         }
     </script>
