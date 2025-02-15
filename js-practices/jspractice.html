@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        function Book(title, author, pages, read) {
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;
+             
+            this.getTitle = function() {
+                return title;
+            }
+            this.getAuthor = function() {
+                return author;
+            }
+            this.getPages = function() {
+                return pages;
+            }
+            this.getRead = function() {
+                return read;
+            }
+            this.info = function() {
+                var read = "not read yet";
+                if(this.getRead) {
+                   read = "was read"; 
+                }
+                return this.getTitle() + " by " + this.getAuthor(), ", " + this.getPages() + " pages " + read;
+            }
+        }
+    </script>
+</body>
+</html>
