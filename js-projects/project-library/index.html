@@ -7,9 +7,39 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>This is just a page</h1>
-
-
-    <script src="script.js"></script>
+    <div class="library_layout">
+        <h1>This is my list of books</h1>
+        <div id="libraryForm">
+            <h2>Add a new book to your library</h2>
+            <div id="formContainer">
+                <form id="formAddBook">
+                    <div class="form-input">
+                        <label>Title</label>
+                        <input name="title_book" type="text" />
+                    </div>
+                    <div class="form-input">
+                        <label>Author</label>
+                        <input name="author_book" type="text" />
+                    </div>
+                    <div class="form-input">
+                        <label>Number of pages</label>
+                        <input name="pages_book" type="number" /> 
+                    </div>
+                    <div class="form-input">
+                        <label>Genre</label>
+                        <input name="genre_book" type="text" />
+                    </div>
+                    <div class="form-input">
+                        <label>You read the book?</label>
+                        <input name="read_book" type="checkbox" />
+                    </div>
+                    <button id="submitBook" type="submit">Add book</button>
+                </form>
+            </div>
+        </div>
+        <div id="libraryContainer"></div>
+    </div>
+   
+    <script src="/script.js"></script>
 </body>
 </html>
