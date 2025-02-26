@@ -27,7 +27,9 @@ html, body {
 }
 
 .library_layout #libraryForm .form-input {
-    margin: 5px 0;
+    margin: 5px 0;  
+    display: flex;
+    flex-flow: column nowrap;
 }
 
 .library_layout #libraryForm .form-input input {
@@ -58,6 +60,17 @@ html, body {
     border-style: dashed;
     border-width: 1px;
     border-color: grey;
+    position: relative;
+}
+.library_layout #libraryContainer .card .remove_button {
+    background-color: orangered;
+    color: white;
+    right: 10px;
+    top: 10px;
+    position: absolute;
+    font-size: 7px;
+    border-style: none;
+    border-radius: 5px;
 }
 
 .library_layout #libraryContainer .card h2 {
@@ -79,6 +92,7 @@ html, body {
     border-radius: 5px;
     max-width: fit-content;
     font-size: 0.6rem;
+    cursor: pointer;
 }
 
 .library_layout #libraryContainer .card .read.yes {

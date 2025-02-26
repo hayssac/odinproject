@@ -21,8 +21,12 @@ function Book(title, author, pages, read, genre) {
         return `${this.pages} pages`;
     }
 
+    this.setRead = function(read) {
+        this.read = read;
+    }
+
     this.getRead = function() {
-        return (this.read ? 'yes' : 'no');
+        return this.read;
     }
 
     this.getGenre = function() {
@@ -44,12 +48,23 @@ function loadLibrary() {
     libraryContainer.innerHTML = '';
     myLibrary.forEach(book => {
         libraryContainer.innerHTML += '<div class="card">' +
+                '<button class="remove_button" data-index=' + myLibrary.indexOf(book) +'>Remove</button>' +
                 '<h2>' + book.getTitleAndAuthor() + '</h2>' +
                 '<p>' + book.getPages() + '</p>' +
                 '<p>Genre: <span class="emphasis">' + book.getGenre() + '</spa>' +
-                '<div class="read '+ book.getRead() +'">' + book.getRead() + '</div >' +
+                '<div class="read '+ (book.getRead() ? 'yes' : 'no') +'" data-index=' + myLibrary.indexOf(book) +'>' + (book.getRead() ? 'yes' : 'no') + '</div >' +
                 '</div>'
     })
+
+    let buttonsRemoval = document.getElementsByClassName('remove_button');
+    for (let button of buttonsRemoval) {
+        button.addEventListener('click', function(e) {
+            let index = e.target.getAttribute('data-index');
+            console.log(index)
+            myLibrary.splice(index, 1);
+            loadLibrary();
+        })
+    }
 }
 
 loadLibrary();
@@ -78,3 +93,22 @@ document.getElementById("formAddBook").addEventListener("submit", function (e) {
     addToThelibrary(newBook);
     loadLibrary();
 });
+
+let readButtons = document.getElementsByClassName('read');
+for (button of readButtons) {
+    button.addEventListener('click', function(e) {
+        let index = e.target.getAttribute('data-index');
+        let element = e.target;
+        book = myLibrary[index];
+        book.setRead(!book.getRead());
+        if (book.getRead()) {
+            element.classList.add('yes');
+            element.innerHTML = 'yes';
+            element.classList.remove('no');
+        } else {
+            element.classList.add('no');
+            element.innerHTML = 'no';
+            element.classList.remove('yes'); 
+        }
+    });
+}
