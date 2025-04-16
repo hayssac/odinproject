@@ -10,43 +10,61 @@
 // 4. Apply conditions to win:
 // 4.1. to win, we must have the following places with the same symbol, whatever they are:
 
-const board = ["", "", "", "", "", "", "", ""]
+const board = ["", "", "", "", "", "", "", "", ""]
 
-function createPlayer(name, symbol) {
+function Player(name, symbol) {
     this.name = name;
     this.symbol = symbol;
     this.getSymbol = () => symbol;
     this.getName = () => name;
 }
 
-function ticTacToe() {
-    this.board = board;
-    const getBoard = () => board;
-    const playOnBoard = (position, player) => {
-        board[position] = player.getSymbol();
+function TicTacToe() {
+    this.board = board
+    this.status = "PROGRESS"
+    this.getBoard = () => board;
+    this.playOnBoard = (position, player) => {
+        if (board[position] == "" && this.status == "PROGRESS") {            
+            board[position] = player.getSymbol()
+            if (verifyResults(player.getSymbol())) {
+                console.log(player.getName() + " won the game, game ended")
+                this.status = "FINISHED"
+            } else {
+                console.log("Another player continues")
+            }
+
+        } else if (board[position] != "" && this.status == "PROGRESS") {
+            console.log("This place already has been marked, try another one")
+        } else {
+            console.log("Game ended")
+        }
     }
-    const verifyResults = (wantedSymbol, testPosition) => {
-        if (testHorizontalWinner(0) || testHorizontalWinner(3) || testHorizontalWinner(6)) {
+    const verifyResults = (symbol) => {
+        if (testHorizontalWinner(0, symbol) || testHorizontalWinner(3, symbol) || testHorizontalWinner(6, symbol)) {
+            console.log("horizontal combination", symbol);
             return true;
-        } else if (testVerticalWinner(0) || testVerticalWinner(1) || testVerticalWinner(3)) {
+        } else if (testVerticalWinner(0, symbol) || testVerticalWinner(1, symbol) || testVerticalWinner(3, symbol)) {
+            console.log("vertical combination", symbol);
             return true;
-        } else if (testCrossWinner(0)) {
+        } else if (testCrossWinner(0, symbol)) {
+            console.log("cross ", symbol)
             return true
-        } else if (testCrossInverseWinner(2)) {
+        } else if (testCrossInverseWinner(2, symbol)) {
+            console.log("cross inverse ", symbol);
             return true;
         }
         return false
     }
-    const testHorizontalWinner =  (position) => {
-        return board[position + 1] == board[position + 2]
+    const testHorizontalWinner =  (position, symbol) => {
+        return board[position] == board[position + 1] && board[position] == board[position + 2] && board[position] == symbol
     }
-    const testCrossInverseWinner = (position) => {
-        return board[position + 2] == board[position + 4]
+    const testCrossInverseWinner = (position, symbol) => {
+        return board[position] == board[position + 2] && board[position] == board[position + 4] && board[position] == symbol
     }
-    const testVerticalWinner = (position) => {
-        return board[position + 3] == board[position + 6]
+    const testVerticalWinner = (position, symbol) => {
+        return board[position] == board[position + 3] && board[position] == board[position + 6] && board[position] == symbol
     }
-    const testCrossWinner = (position) => {
-        return board[position + 4] == board[position + 8]
+    const testCrossWinner = (position, symbol) => {
+        return board[position] == board[position + 4] && board[position] == board[position + 8] && board[position] == symbol
     }
 }
