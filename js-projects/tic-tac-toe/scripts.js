@@ -22,23 +22,36 @@ function Player(name, symbol) {
 function TicTacToe() {
     this.board = board
     this.status = "PROGRESS"
-    this.getBoard = () => board;
+    this.getBoard = () => board
+    this.lastPlayerPlayed = {}
     this.playOnBoard = (position, player) => {
-        if (board[position] == "" && this.status == "PROGRESS") {            
-            board[position] = player.getSymbol()
-            if (verifyResults(player.getSymbol())) {
-                console.log(player.getName() + " won the game, game ended")
-                this.status = "FINISHED"
-            } else {
-                console.log("Another player continues")
-            }
-
-        } else if (board[position] != "" && this.status == "PROGRESS") {
-            console.log("This place already has been marked, try another one")
+        if (getLastPlayerPlayed().getName() == player.getName()) {
+            console.log("You already played, this is the other player time");
+            return;
         } else {
-            console.log("Game ended")
+            if (board[position] == "" && this.status == "PROGRESS") {            
+                board[position] = player.getSymbol()
+                if (verifyResults(player.getSymbol())) {
+                    console.log(player.getName() + " won the game, game ended")
+                    this.status = "FINISHED"
+                } else {
+                    console.log("Another player continues")
+                }
+                setLastPlayerPlayed(player);
+            } else if (board[position] != "" && this.status == "PROGRESS") {
+                console.log("This place already has been marked, try another one")
+            } else {
+                console.log("Game ended")
+                setLastPlayerPlayed(player);
+            }
         }
     }
+    const setLastPlayerPlayed = (player) => {
+        this.lastPlayerPlayed = player;
+    }
+    const getLastPlayerPlayed = () => {
+        return this.lastPlayerPlayed;
+    } 
     const verifyResults = (symbol) => {
         if (testHorizontalWinner(0, symbol) || testHorizontalWinner(3, symbol) || testHorizontalWinner(6, symbol)) {
             console.log("horizontal combination", symbol);
