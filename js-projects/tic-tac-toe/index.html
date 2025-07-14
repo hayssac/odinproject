@@ -3,15 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Tic Tac Toe</title>
 </head>
 <body>
     <div class="game">
+        <form>
+            <label for="firstplayer">First Player:</label><br>
+            <input type="text" id="firstPlayer" name="firstPlayer"><br>
+            <label for="secondplayer">Second Player:</label><br>
+            <input type="text" id="secondPlayer" name="secondPlayer"><br>
+            <input type="submit" value="Submit" id="submitPlayers">
+        </form>
         <div class="player">
             <p>Player active: <div id="playerName"></div></p>            
         </div>
-        <div class="tic-tac-toe">
-
+        <div class="tic-tac-toe grid grid-cols-3 grid-rows-3 gap-3">
+            <div data-position="0" class="tic-tac-toe_position"></div>
+            <div data-position="1" class="tic-tac-toe_position"></div>
+            <div data-position="2" class="tic-tac-toe_position"></div>
+            <div data-position="3" class="tic-tac-toe_position"></div>
+            <div data-position="4" class="tic-tac-toe_position"></div>
+            <div data-position="5" class="tic-tac-toe_position"></div>
+            <div data-position="6" class="tic-tac-toe_position"></div>
+            <div data-position="7" class="tic-tac-toe_position"></div>
+            <div data-position="8" class="tic-tac-toe_position"></div>
         </div>
     </div>
     

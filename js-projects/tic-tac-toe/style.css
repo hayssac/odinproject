@@ -1,0 +1,9 @@
+.tic-tac-toe {
+    width: 350px;
+    height: 350px;
+}
+.tic-tac-toe_position {
+    background-color: salmon;
+    width: 100px;
+    height: 100px;
+}
