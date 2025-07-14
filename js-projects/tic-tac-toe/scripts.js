@@ -10,13 +10,30 @@
 // 4. Apply conditions to win:
 // 4.1. to win, we must have the following places with the same symbol, whatever they are:
 
-const board = ["", "", "", "", "", "", "", "", ""]
+// let hayssa = new Player("Hayssa", "X");
+// let duarte = new Player("Duarte", "O");
+// let game = new TicTacToe();
+
+// game.playOnBoard(0, hayssa)
+// game.playOnBoard(0, duarte)
+// game.playOnBoard(0, hayssa)
+// game.playOnBoard(1, duarte)
+// game.playOnBoard(4, hayssa)
+// game.playOnBoard(8, duarte)
+// game.playOnBoard(3, hayssa)
+// board
+// game.playOnBoard(2, duarte)
+// game.playOnBoard(6, hayssa)
+// board 
+// game 
+
+let board = ["", "", "", "", "", "", "", "", ""]
 
 function Player(name, symbol) {
     this.name = name;
     this.symbol = symbol;
-    this.getSymbol = () => symbol;
-    this.getName = () => name;
+    this.getSymbol = function getSymbol() {return this.symbol};
+    this.getName = function getName() {return this.name};
 }
 
 function TicTacToe() {
@@ -25,26 +42,31 @@ function TicTacToe() {
     this.getBoard = () => board
     this.lastPlayerPlayed = {}
     this.playOnBoard = (position, player) => {
-        if (getLastPlayerPlayed().getName() == player.getName()) {
-            console.log("You already played, this is the other player time");
-            return;
+        if (this.status == "FINISHED") {
+            console.log("This game is over")
         } else {
-            if (board[position] == "" && this.status == "PROGRESS") {            
-                board[position] = player.getSymbol()
-                if (verifyResults(player.getSymbol())) {
-                    console.log(player.getName() + " won the game, game ended")
-                    this.status = "FINISHED"
-                } else {
-                    console.log("Another player continues")
-                }
-                setLastPlayerPlayed(player);
-            } else if (board[position] != "" && this.status == "PROGRESS") {
-                console.log("This place already has been marked, try another one")
+            if (this.lastPlayerPlayed == player.getName) {
+                console.log("You already played, this is the other player time");
+                return;
             } else {
-                console.log("Game ended")
-                setLastPlayerPlayed(player);
+                if (board[position] == "" && this.status == "PROGRESS") {            
+                    board[position] = player.getSymbol()
+                    if (verifyResults(player.getSymbol())) {
+                        console.log(player.getName() + " won the game, game ended")
+                        this.status = "FINISHED"
+                    } else {
+                        console.log("Another player continues")
+                    }
+                    setLastPlayerPlayed(player);
+                } else if (board[position] != "" && this.status == "PROGRESS") {
+                    console.log("This place already has been marked, try another one")
+                } else {
+                    console.log("Game ended")
+                    setLastPlayerPlayed(player);
+                }
             }
         }
+        
     }
     const setLastPlayerPlayed = (player) => {
         this.lastPlayerPlayed = player;
