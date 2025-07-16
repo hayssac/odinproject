@@ -103,3 +103,30 @@ function TicTacToe() {
         return board[position] == board[position + 4] && board[position] == board[position + 8] && board[position] == symbol
     }
 }
+
+
+
+let markBoard = (event) => {
+    let position = event.target.getAttribute("data-position");
+    console.log(position);
+}
+
+let elements = document.getElementsByClassName("tic-tac-toe_position");
+Array.from(elements).forEach(function(element) {
+    element.addEventListener("click", markBoard);
+});
+
+
+
+let form = document.getElementById("playersForm"); 
+handleForm = (event) => { 
+    event.preventDefault();
+    let formData = new FormData(form);
+    let input1 = formData.get("firstPlayer");
+    let input2 = formData.get("secondPlayer");
+    const player1 = new Player(input1, "X");
+    const player2 = new Player(input2, "O");
+    console.log(player1, player2);
+}  
+
+form.addEventListener('submit', handleForm);
