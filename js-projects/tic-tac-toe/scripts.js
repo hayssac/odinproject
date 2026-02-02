@@ -5,9 +5,31 @@ function createPlayer(name, symbol) {
     return { getName, getSymbol };
 }
 
+const TicTacToeDOM = (function() {
+    const drawOnBoard = (position, player) => {
+        let divToPaint = document.querySelector("[data-position='" + position + "'")
+        divToPaint.innerHTML = player.getName()
+    }
+
+    const showPopupWinner = (player, won) => {
+        if (won) {
+            console.log("The winner is: " + player.getName().toUpperCase())
+        } else {
+            console.log("Nobody won because they are losers lol")
+        }
+    }
+
+    const repaint = () => {}
+
+    return {
+        drawOnBoard, 
+        showPopupWinner,
+        repaint
+    }
+})();
+
 const TicTacToe = (function() {
     let board = ["", "", "", "", "", "", "", "", ""];
-    let currentPlayer = null;
     let status = "PROGRESS";
 
     const getStatus = () => { return status }
@@ -24,22 +46,22 @@ const TicTacToe = (function() {
         } else {
             if (board[position] == "" && getStatus() == "PROGRESS") {            
                 board[position] = player.getSymbol()
-                if (verifyResults(player.getSymbol())) {
-                    drawOnBoard(position, player)
-                    console.log(player.getName() + " won the game, game ended")
+                if (verifyWin(player.getSymbol())) {
+                    TicTacToeDOM.drawOnBoard(position, player)
                     setStatus("FINISHED")
+                    TicTacToeDOM.showPopupWinner(player, true)
                     callForReset();
+                    return false;
                 } else {
                     console.log("Another player continues")
-                    drawOnBoard(position, player)
+                    return true;
                 }
-                return true;
             } else if (board[position] != "" && getStatus() == "PROGRESS") {
                 if (!isBoardFull()) {
                     console.log("This place already has been marked, try another one")
                     return false;  
                 } else {
-                    console.log("Nobody won because board is full and no combination was done")
+                    TicTacToeDOM.showPopupWinner(player, false)
                 }
           
             } else {
@@ -53,20 +75,11 @@ const TicTacToe = (function() {
         return board.every(item => item !== "");
     }
 
-    const drawOnBoard = (position, player) => {
-        let divToPaint = document.querySelector("[data-position='" + position + "'")
-        divToPaint.innerHTML = player.getName()
-    }
-
     const callForReset = () => {
-        // i have to put a logic here to throw a window with the name of the winner and
-        // a call to action to reset
         reset();
-        // also maybe a repaint method
-        // repaint();
     }
 
-    const verifyResults = (symbol) => {
+    const verifyWin = (symbol) => {
         if (testHorizontalWinner(0, symbol) || testHorizontalWinner(3, symbol) || testHorizontalWinner(6, symbol)) {
             console.log("horizontal combination", symbol);
             return true;
@@ -125,6 +138,7 @@ let markBoard = (event) => {
     let position = event.target.getAttribute("data-position");
     let turn = TicTacToe.playOnBoard(position, window.currentPlayer)
     if (turn) {
+        TicTacToeDOM.drawOnBoard(position, window.currentPlayer)
         if (window.currentPlayer == window.player1) {
             window.currentPlayer = window.player2
         } else {
