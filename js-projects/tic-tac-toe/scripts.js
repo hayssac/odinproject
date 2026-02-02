@@ -1,79 +1,71 @@
-// Roadmap of the code
-// 1. Create the board
-// we can just designate the board shape with CSS, but make the places as numbers 0 to 8 (9 places)
-// each time, alternatively, a player will play as X and the other as O
-// 2. Generate items inside with data-cell
-// 3. Add click event that will have to know which player is playing
-// 3.1. With each click, beyond adding the symbol, testIfTheyCan(),
-// 3.2. if they can, testWin()
-// 3.2. if there is no winner, changePlayer() 
-// 4. Apply conditions to win:
-// 4.1. to win, we must have the following places with the same symbol, whatever they are:
-
-// let hayssa = new Player("Hayssa", "X");
-// let duarte = new Player("Duarte", "O");
-// let game = new TicTacToe();
-
-// game.playOnBoard(0, hayssa)
-// game.playOnBoard(0, duarte)
-// game.playOnBoard(0, hayssa)
-// game.playOnBoard(1, duarte)
-// game.playOnBoard(4, hayssa)
-// game.playOnBoard(8, duarte)
-// game.playOnBoard(3, hayssa)
-// board
-// game.playOnBoard(2, duarte)
-// game.playOnBoard(6, hayssa)
-// board 
-// game 
-
-let board = ["", "", "", "", "", "", "", "", ""]
-
-function Player(name, symbol) {
-    this.name = name;
-    this.symbol = symbol;
-    this.getSymbol = function getSymbol() {return this.symbol};
-    this.getName = function getName() {return this.name};
+function createPlayer(name, symbol) {
+    const getName = () => name;
+    const getSymbol = () => symbol;
+    
+    return { getName, getSymbol };
 }
 
-function TicTacToe() {
-    this.board = board
-    this.status = "PROGRESS"
-    this.getBoard = () => board
-    this.lastPlayerPlayed = {}
-    this.playOnBoard = (position, player) => {
-        if (this.status == "FINISHED") {
+const TicTacToe = (function() {
+    let board = ["", "", "", "", "", "", "", "", ""];
+    let currentPlayer = null;
+    let status = "PROGRESS";
+
+    const getStatus = () => { return status }
+
+    const setStatus = (st) => { status = st }
+
+    const reset = () => {
+        board = ["", "", "", "", "", "", "", "", ""];
+    }
+
+    const playOnBoard = (position, player) => {
+        if (getStatus() == "FINISHED") {
             console.log("This game is over")
         } else {
-            if (this.lastPlayerPlayed == player.getName) {
-                console.log("You already played, this is the other player time");
-                return;
-            } else {
-                if (board[position] == "" && this.status == "PROGRESS") {            
-                    board[position] = player.getSymbol()
-                    if (verifyResults(player.getSymbol())) {
-                        console.log(player.getName() + " won the game, game ended")
-                        this.status = "FINISHED"
-                    } else {
-                        console.log("Another player continues")
-                    }
-                    setLastPlayerPlayed(player);
-                } else if (board[position] != "" && this.status == "PROGRESS") {
-                    console.log("This place already has been marked, try another one")
+            if (board[position] == "" && getStatus() == "PROGRESS") {            
+                board[position] = player.getSymbol()
+                if (verifyResults(player.getSymbol())) {
+                    drawOnBoard(position, player)
+                    console.log(player.getName() + " won the game, game ended")
+                    setStatus("FINISHED")
+                    callForReset();
                 } else {
-                    console.log("Game ended")
-                    setLastPlayerPlayed(player);
+                    console.log("Another player continues")
+                    drawOnBoard(position, player)
                 }
+                return true;
+            } else if (board[position] != "" && getStatus() == "PROGRESS") {
+                if (!isBoardFull()) {
+                    console.log("This place already has been marked, try another one")
+                    return false;  
+                } else {
+                    console.log("Nobody won because board is full and no combination was done")
+                }
+          
+            } else {
+                console.log("Game ended")
+                return false;
             }
         }
-        
     }
-    const setLastPlayerPlayed = (player) => {
-        this.lastPlayerPlayed = player;
+
+    const isBoardFull = () => {
+        return board.every(item => item !== "");
     }
-    const getLastPlayerPlayed = () => {
-        return this.lastPlayerPlayed;
-    } 
+
+    const drawOnBoard = (position, player) => {
+        let divToPaint = document.querySelector("[data-position='" + position + "'")
+        divToPaint.innerHTML = player.getName()
+    }
+
+    const callForReset = () => {
+        // i have to put a logic here to throw a window with the name of the winner and
+        // a call to action to reset
+        reset();
+        // also maybe a repaint method
+        // repaint();
+    }
+
     const verifyResults = (symbol) => {
         if (testHorizontalWinner(0, symbol) || testHorizontalWinner(3, symbol) || testHorizontalWinner(6, symbol)) {
             console.log("horizontal combination", symbol);
@@ -102,31 +94,47 @@ function TicTacToe() {
     const testCrossWinner = (position, symbol) => {
         return board[position] == board[position + 4] && board[position] == board[position + 8] && board[position] == symbol
     }
+
+    return {
+        playOnBoard
+    }
+ 
+})();
+
+let form = document.getElementById("playersForm"); 
+const handleForm = (event) => { 
+    event.preventDefault();
+    const name1 = new FormData(form).get("firstPlayer");
+    const name2 = new FormData(form).get("secondPlayer");
+    const player1 = createPlayer(name1, "X");
+    const player2 = createPlayer(name2, "O");
+    // Hide form
+    form.style.display = "none";
+    startGame(player1, player2);
 }
+form.addEventListener("submit", handleForm)
 
-
+const startGame = (p1, p2) => {
+    window.currentPlayer = p1; 
+    window.player1 = p1;
+    window.player2 = p2
+    // how do i enable button?
+}
 
 let markBoard = (event) => {
     let position = event.target.getAttribute("data-position");
-    console.log(position);
+    let turn = TicTacToe.playOnBoard(position, window.currentPlayer)
+    if (turn) {
+        if (window.currentPlayer == window.player1) {
+            window.currentPlayer = window.player2
+        } else {
+            window.currentPlayer = window.player1
+        }
+    }
 }
 
 let elements = document.getElementsByClassName("tic-tac-toe_position");
+
 Array.from(elements).forEach(function(element) {
     element.addEventListener("click", markBoard);
 });
-
-
-
-let form = document.getElementById("playersForm"); 
-handleForm = (event) => { 
-    event.preventDefault();
-    let formData = new FormData(form);
-    let input1 = formData.get("firstPlayer");
-    let input2 = formData.get("secondPlayer");
-    const player1 = new Player(input1, "X");
-    const player2 = new Player(input2, "O");
-    console.log(player1, player2);
-}  
-
-form.addEventListener('submit', handleForm);
