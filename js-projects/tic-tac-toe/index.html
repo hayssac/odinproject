@@ -9,26 +9,27 @@
 </head>
 <body>
     <div class="game">
-        <form class="p-3" id="playersForm">
-            <label for="firstplayer">First Player:</label><br>
-            <input type="text" class="border-2 border-solid mb-2" id="firstPlayer" name="firstPlayer"><br>
-            <label for="secondplayer">Second Player:</label><br>
-            <input type="text" class="border-2 border-solid mb-2" id="secondPlayer" name="secondPlayer"><br>
-            <input type="submit" class="border-2 rounded-sm bg-blue-500 px-2" value="Submit" id="submitPlayers">
-        </form>
-        <div class="player">
-            <p>Player active: <div id="playerName"></div></p>            
+        <div class="form-envelope w-full flex flex-row justify-center">
+            <form class="p-3 my-3" id="playersForm">
+                <label for="firstPlayer">First Player:</label><br>
+                <input type="text" class="border-2 border-solid mb-2" id="firstPlayer" name="firstPlayer"><br>
+                <label for="secondPlayer">Second Player:</label><br>
+                <input type="text" class="border-2 border-solid mb-2" id="secondPlayer" name="secondPlayer"><br>
+                <input type="submit" class="border-2 rounded-sm bg-blue-500 px-2" value="Submit" id="submitPlayers">
+            </form>            
         </div>
-        <div class="tic-tac-toe grid grid-cols-3 grid-rows-3 gap-3">
-            <div data-position="0" class="tic-tac-toe_position"></div>
-            <div data-position="1" class="tic-tac-toe_position"></div>
-            <div data-position="2" class="tic-tac-toe_position"></div>
-            <div data-position="3" class="tic-tac-toe_position"></div>
-            <div data-position="4" class="tic-tac-toe_position"></div>
-            <div data-position="5" class="tic-tac-toe_position"></div>
-            <div data-position="6" class="tic-tac-toe_position"></div>
-            <div data-position="7" class="tic-tac-toe_position"></div>
-            <div data-position="8" class="tic-tac-toe_position"></div>
+        <div class="tic-tac-toe-envelope py-3 w-full flex flex-row justify-center">
+            <div class="tic-tac-toe grid grid-cols-3 grid-rows-3 gap-3">
+                <div data-position="0" class="tic-tac-toe_position"></div>
+                <div data-position="1" class="tic-tac-toe_position"></div>
+                <div data-position="2" class="tic-tac-toe_position"></div>
+                <div data-position="3" class="tic-tac-toe_position"></div>
+                <div data-position="4" class="tic-tac-toe_position"></div>
+                <div data-position="5" class="tic-tac-toe_position"></div>
+                <div data-position="6" class="tic-tac-toe_position"></div>
+                <div data-position="7" class="tic-tac-toe_position"></div>
+                <div data-position="8" class="tic-tac-toe_position"></div>
+            </div>
         </div>
     </div>
     

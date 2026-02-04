@@ -122,7 +122,7 @@ const handleForm = (event) => {
     const player1 = createPlayer(name1, "X");
     const player2 = createPlayer(name2, "O");
     // Hide form
-    form.style.display = "none";
+    form.style.visibility = "hidden";
     startGame(player1, player2);
 }
 form.addEventListener("submit", handleForm)
