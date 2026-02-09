@@ -1,3 +1,5 @@
+let boxes = document.getElementsByClassName("tic-tac-toe_position");
+
 function createPlayer(name, symbol) {
     const getName = () => name;
     const getSymbol = () => symbol;
@@ -7,7 +9,7 @@ function createPlayer(name, symbol) {
 
 const TicTacToeDOM = (function() {
     const drawOnBoard = (position, player) => {
-        let divToPaint = document.querySelector("[data-position='" + position + "'")
+        let divToPaint = document.querySelector("[data-position='" + position + "']")
         divToPaint.innerHTML = player.getName()
     }
 
@@ -19,7 +21,14 @@ const TicTacToeDOM = (function() {
         }
     }
 
-    const repaint = () => {}
+    const repaint = () => {
+        document.getElementById("playersForm").reset();
+        document.getElementById("playersForm").style.visibility = "visible"    
+        Array.from(boxes).forEach(function(box) {
+            box.innerHTML ="";
+        });
+
+    }
 
     return {
         drawOnBoard, 
@@ -38,6 +47,7 @@ const TicTacToe = (function() {
 
     const reset = () => {
         board = ["", "", "", "", "", "", "", "", ""];
+        setStatus("PROGRESS");
     }
 
     const playOnBoard = (position, player) => {
@@ -47,36 +57,28 @@ const TicTacToe = (function() {
             if (board[position] == "" && getStatus() == "PROGRESS") {            
                 board[position] = player.getSymbol()
                 if (verifyWin(player.getSymbol())) {
-                    TicTacToeDOM.drawOnBoard(position, player)
                     setStatus("FINISHED")
-                    TicTacToeDOM.showPopupWinner(player, true)
-                    callForReset();
-                    return false;
+                    return "WIN";
                 } else {
-                    console.log("Another player continues")
-                    return true;
+                    if (isBoardFull()) {
+                        setStatus("FINISHED")
+                        return "TIE";
+                    } else {
+                        return "CONTINUE";
+                    }
                 }
             } else if (board[position] != "" && getStatus() == "PROGRESS") {
                 if (!isBoardFull()) {
-                    console.log("This place already has been marked, try another one")
-                    return false;  
-                } else {
-                    TicTacToeDOM.showPopupWinner(player, false)
-                }
-          
+                    return "INVALID";  
+                } 
             } else {
-                console.log("Game ended")
-                return false;
+                return "ENDED";
             }
         }
     }
 
     const isBoardFull = () => {
         return board.every(item => item !== "");
-    }
-
-    const callForReset = () => {
-        reset();
     }
 
     const verifyWin = (symbol) => {
@@ -109,7 +111,8 @@ const TicTacToe = (function() {
     }
 
     return {
-        playOnBoard
+        playOnBoard,
+        reset
     }
  
 })();
@@ -137,18 +140,30 @@ const startGame = (p1, p2) => {
 let markBoard = (event) => {
     let position = event.target.getAttribute("data-position");
     let turn = TicTacToe.playOnBoard(position, window.currentPlayer)
-    if (turn) {
+    if (turn == "WIN") {
+        TicTacToeDOM.drawOnBoard(position, window.currentPlayer)
+        TicTacToeDOM.showPopupWinner(window.currentPlayer, true)
+
+    } else if (turn == "CONTINUE") {
+        console.log("Another player continues")
         TicTacToeDOM.drawOnBoard(position, window.currentPlayer)
         if (window.currentPlayer == window.player1) {
             window.currentPlayer = window.player2
         } else {
             window.currentPlayer = window.player1
         }
+    } else if (turn == "INVALID") {
+        console.log("This is an invalid move")
+    } else if (turn == "TIE") {
+        TicTacToeDOM.drawOnBoard(position, window.currentPlayer)
+        TicTacToeDOM.showPopupWinner(window.currentPlayer, false)
+    } else if (turn == "ENDED") {
+        console.log("Game finished with no conditions of winning")
+
     }
 }
 
-let elements = document.getElementsByClassName("tic-tac-toe_position");
 
-Array.from(elements).forEach(function(element) {
-    element.addEventListener("click", markBoard);
+Array.from(boxes).forEach(function(box) {
+    box.addEventListener("click", markBoard);
 });
