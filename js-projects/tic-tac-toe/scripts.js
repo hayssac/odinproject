@@ -10,15 +10,22 @@ function createPlayer(name, symbol) {
 const TicTacToeDOM = (function() {
     const drawOnBoard = (position, player) => {
         let divToPaint = document.querySelector("[data-position='" + position + "']")
-        divToPaint.innerHTML = player.getName()
+        divToPaint.innerHTML = player.getSymbol()
     }
 
     const showPopupWinner = (player, won) => {
+        let nameOfWinner = document.getElementById("ticTacToeWinner");
         if (won) {
-            console.log("The winner is: " + player.getName().toUpperCase())
+            nameOfWinner.innerText = player.getName();
         } else {
-            console.log("Nobody won because they are losers lol")
+            nameOfWinner.innerText = "Nobody"
         }
+        document.getElementById("resultsDialog").classList.remove("d-none");
+        document.getElementById("resultsDialog").classList.add("flex");
+    }
+
+    const paintCurrentPlayer = (playerName) => {
+        document.getElementById("tic-tac-toe-player-info-current").innerText = playerName
     }
 
     const repaint = () => {
@@ -27,13 +34,20 @@ const TicTacToeDOM = (function() {
         Array.from(boxes).forEach(function(box) {
             box.innerHTML ="";
         });
+        window.currentPlayer = "";
+        window.p1 = "";
+        window.p2 = "";
+        document.getElementById("resultsDialog").classList.add("d-none");
+        document.getElementById("resultsDialog").classList.remove("flex");
+        document.getElementById("tic-tac-toe-player-info-current").innerText = ""
 
     }
 
     return {
         drawOnBoard, 
         showPopupWinner,
-        repaint
+        repaint,
+        paintCurrentPlayer
     }
 })();
 
@@ -127,19 +141,26 @@ const handleForm = (event) => {
     // Hide form
     form.style.visibility = "hidden";
     startGame(player1, player2);
+    TicTacToeDOM.paintCurrentPlayer(player1.getName())
 }
 form.addEventListener("submit", handleForm)
+
+document.getElementById("resetButton").addEventListener("click", (ev) => {
+    ev.preventDefault();
+    TicTacToe.reset();
+    TicTacToeDOM.repaint();
+})
 
 const startGame = (p1, p2) => {
     window.currentPlayer = p1; 
     window.player1 = p1;
-    window.player2 = p2
-    // how do i enable button?
+    window.player2 = p2;
 }
 
 let markBoard = (event) => {
     let position = event.target.getAttribute("data-position");
     let turn = TicTacToe.playOnBoard(position, window.currentPlayer)
+    TicTacToeDOM.paintCurrentPlayer(window.currentPlayer.getName())
     if (turn == "WIN") {
         TicTacToeDOM.drawOnBoard(position, window.currentPlayer)
         TicTacToeDOM.showPopupWinner(window.currentPlayer, true)

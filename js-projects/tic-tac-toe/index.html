@@ -6,42 +6,46 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Tic Tac Toe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <div class="game">
-        <div class="form-envelope w-full flex flex-row justify-center">
+        <div class="form-envelope doto-text-normal w-full flex flex-row justify-center">
             <form class="p-3 my-3" id="playersForm">
                 <label for="firstPlayer">First Player:</label><br>
                 <input type="text" class="border-2 border-solid mb-2" id="firstPlayer" name="firstPlayer"><br>
                 <label for="secondPlayer">Second Player:</label><br>
                 <input type="text" class="border-2 border-solid mb-2" id="secondPlayer" name="secondPlayer"><br>
-                <input type="submit" class="border-2 rounded-sm bg-blue-500 px-2" value="Submit" id="submitPlayers">
+                <input type="submit" class="border-2 bg-blue-500 px-2" value="Submit" id="submitPlayers">
             </form>            
         </div>
-        <div class="tic-tac-toe-player-info text-center">
-            <h1>Current player: <span id="tic-tac-toe-player-info-current" class="font-bold">[[]]</span></h1>
+        <div class="tic-tac-toe-player-info text-center doto-text-normal">
+            <h1>Current player: <span id="tic-tac-toe-player-info-current" class="font-bold"></span></h1>
         </div>
         <div class="tic-tac-toe-envelope py-3 w-full flex flex-row justify-center">
             <div class="tic-tac-toe grid grid-cols-3 grid-rows-3 gap-3">
-                <div data-position="0" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
-                <div data-position="1" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
-                <div data-position="2" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
-                <div data-position="3" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
-                <div data-position="4" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
-                <div data-position="5" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
-                <div data-position="6" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
-                <div data-position="7" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
-                <div data-position="8" class="tic-tac-toe_position flex flex-row justify-center items-center"></div>
+                <div data-position="0" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
+                <div data-position="1" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
+                <div data-position="2" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
+                <div data-position="3" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
+                <div data-position="4" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
+                <div data-position="5" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
+                <div data-position="6" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
+                <div data-position="7" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
+                <div data-position="8" class="tic-tac-toe_position doto-text-normal flex flex-row justify-center items-center"></div>
             </div>
         </div>
     </div>
     
 
-    <div class="tic-tac-toe__dialog">
-        <div class="tic-tac-toe__winner">
-            <h2 id="ticTacToeDialogResults">PLACEHOLDER</h2>
-            <h1 class="tic-tac-toe__dialog-message"><span id="ticTacToeWinner">PLACEHOLDER</span> WON</h1>
-            <button id="resetButton">Play again?</button>
+    <div id="resultsDialog" class="tic-tac-toe__dialog d-none flex-row justify-center items-center text-center">
+        <div class="tic-tac-toe__winner flex flex-col justify-center items-center">
+            <h2 id="ticTacToeDialogResults" class="doto-text-bold uppercase">RESULTS</h2>
+            <h1 class="tic-tac-toe__dialog-message doto-text-normal"><span class="doto-text-bold" id="ticTacToeWinner">PLACEHOLDER</span> WON</h1>
+            <button class="doto-text-normal uppercase" id="resetButton">Play again?</button>
         </div>
     </div>
     <script type="text/javascript" src="scripts.js"></script>
